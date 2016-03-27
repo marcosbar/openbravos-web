@@ -1,4 +1,0 @@
-commons/CashTestHelper.class
-functional/CashControllerTest.class
-integration/persistence/CashServiceTest.class
-unit/domain/facade/CashFacadeTest.class
