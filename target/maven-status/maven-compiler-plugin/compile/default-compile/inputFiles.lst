@@ -1,8 +1,0 @@
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/view/controller/CashController.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/persistence/model/PaymentData.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/persistence/dao/impl/CashJDBCTemplate.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/persistence/dao/CashDAO.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/view/model/CurrentCash.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/persistence/model/CashModel.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/domain/facade/CashFacade.java
-/Users/mba48/Personal/openbravos-web/src/main/java/com/mgb/domain/service/CashService.java
