@@ -62,7 +62,7 @@ public class CashJDBCTemplate extends JdbcDaoSupport implements CashDAO {
             CashModel cash = new CashModel();
             cash.setId(rs.getString("id"));
             cash.setStart(new DateTime(rs.getTimestamp("start")));
-            cash.setStart(new DateTime(rs.getTimestamp("end")));
+            cash.setEnd(new DateTime(rs.getTimestamp("end")));
             return cash;
         }
     }

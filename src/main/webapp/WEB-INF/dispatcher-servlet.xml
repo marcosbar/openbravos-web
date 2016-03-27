@@ -17,7 +17,16 @@
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="objectMapper" ref="customObjectMapper"/>
+				<property name="objectMapper">
+					<bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+						<property name="serializers">
+							<array>
+								<bean class="com.mgb.view.common.json.DateTimeSerializer"/>
+								<bean class="com.mgb.view.common.json.BigDecimalSerializer"/>
+							</array>
+						</property>
+					</bean>
+				</property>
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>

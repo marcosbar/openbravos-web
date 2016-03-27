@@ -26,7 +26,7 @@ public class CashServiceTest {
         //GIVEN
         CashModel expected = new CashModel();
         expected.setId("248191f5-938b-4109-8b19-ab6008dd5d79");
-        expected.setStart(DateTime.parse("2016-03-27T12:29:41.319+01:00"));
+        expected.setStart(DateTime.parse("2013-08-26T22:32:59.319+01:00"));
 
         //WHEN
         CashModel cashModel = cashService.getCurrentCash();

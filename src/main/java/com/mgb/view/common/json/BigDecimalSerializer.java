@@ -6,25 +6,26 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * Created by mgb on 27/03/2016.
  */
-//@JsonSerialize(using = DateTimeSerializer.class) TODO: why is not working?
-public class DateTimeSerializer extends JsonSerializer<DateTime> {
+public class BigDecimalSerializer extends JsonSerializer<BigDecimal> {
 
     DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/YYYY HH:mm:ss");
 
     @Override
-    public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-        jgen.writeString(dtf.print(value));
+    public void serialize(BigDecimal value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+        jgen.writeNumber(value.setScale(2, BigDecimal.ROUND_CEILING));
     }
 
     @Override
-    public Class<DateTime> handledType() {
-        return DateTime.class;
+    public Class<BigDecimal> handledType() {
+        return BigDecimal.class;
     }
 }

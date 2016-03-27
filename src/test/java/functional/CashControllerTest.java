@@ -43,6 +43,6 @@ public class CashControllerTest {
         mockMvc.perform(get("/cash/current")
                 .contentType("application/json"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"cash\":192.40,\"created\":\"2016-03-27T12:29:41.319+01:00\",\"numberOfSales\":21}"));
+                .andExpect(content().string("{\"cash\":192.40,\"created\":\"26/08/2013 22:32:59\",\"numberOfSales\":21}"));
     }
 }
