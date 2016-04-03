@@ -22,7 +22,7 @@
                 <testDataSource.password>test</testDataSource.password>
                 <!-- LOCAL -->
                 <dataSource.jdbcDriverName>com.mysql.jdbc.Driver</dataSource.jdbcDriverName>
-                <dataSource.url>jdbc:mysql://localhost/openbravos_test</dataSource.url>
+                <dataSource.url>jdbc:mysql://localhost/openbravos</dataSource.url>
                 <dataSource.user>test</dataSource.user>
                 <dataSource.password>test</dataSource.password>
             </properties>
