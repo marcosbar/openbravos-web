@@ -3,10 +3,9 @@ package unit.domain.facade;
 import com.mgb.domain.facade.CashFacade;
 import com.mgb.domain.service.CashService;
 import com.mgb.persistence.model.CashModel;
-import com.mgb.persistence.model.PaymentData;
-import com.mgb.view.model.CurrentCash;
+import com.mgb.persistence.model.PaymentDataModel;
+import com.mgb.view.model.Cash;
 import junit.framework.Assert;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,7 +41,7 @@ public class CashFacadeTest {
         Mockito.when(cashService.getCurrentCash()).thenReturn(getCashModel());
 
         //WHEN
-        CurrentCash currentCash = cashFacade.getCurrentCash();
+        Cash currentCash = cashFacade.getCurrentCash();
 
         //THEN
         Assert.assertEquals(currentCash,getCurrentCash());
@@ -58,11 +56,11 @@ public class CashFacadeTest {
         Mockito.when(cashService.getCurrentCash()).thenReturn(cashModel);
 
         //WHEN
-        CurrentCash currentCash = cashFacade.getCurrentCash();
+        Cash currentCash = cashFacade.getCurrentCash();
 
         //THEN
-        //Assert.assertTrue(currentCash.equals(new CurrentCash(BigDecimal.ZERO,START_DATE,0)));
-        Assert.assertEquals(currentCash, new CurrentCash(BigDecimal.ZERO,START_DATE,0));
+        //Assert.assertTrue(currentCash.equals(new Cash(BigDecimal.ZERO,START_DATE,0)));
+        Assert.assertEquals(currentCash, new Cash(BigDecimal.ZERO,START_DATE,0));
     }
 
     @Test
@@ -71,11 +69,11 @@ public class CashFacadeTest {
         //GIVEN
         CashModel cashModel = new CashModel();
         cashModel.setStart(START_DATE);
-        cashModel.setPaymentDetails(Stream.of(new PaymentData(TYPE_CARD,TOTAL_AMOUNT,NUMBER_OF_SALES)).collect(Collectors.toList()));
+        cashModel.setPaymentDetails(Stream.of(new PaymentDataModel(TYPE_CARD,TOTAL_AMOUNT,NUMBER_OF_SALES)).collect(Collectors.toList()));
         Mockito.when(cashService.getCurrentCash()).thenReturn(cashModel);
 
         //WHEN
-        CurrentCash currentCash = cashFacade.getCurrentCash();
+        Cash currentCash = cashFacade.getCurrentCash();
 
         //THEN
         Assert.assertEquals(currentCash, getCurrentCash());

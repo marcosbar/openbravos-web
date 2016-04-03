@@ -2,12 +2,16 @@ package com.mgb.domain.facade;
 
 import com.mgb.domain.service.CashService;
 import com.mgb.persistence.model.CashModel;
-import com.mgb.view.model.CurrentCash;
+import com.mgb.persistence.model.PaymentDataModel;
+import com.mgb.view.model.Cash;
+import com.mgb.view.model.PaymentData;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -19,14 +23,14 @@ public class CashFacade {
     @Autowired
     private CashService cashService;
 
-    public CurrentCash getCurrentCash(){
+    public Cash getCurrentCash(){
         CashModel cashModel = cashService.getCurrentCash();
-        if(CollectionUtils.isEmpty(cashModel.getPaymentDetails())){
-            return new CurrentCash(BigDecimal.ZERO,cashModel.getStart(),0);
-        }
-        Stream<BigDecimal> total = cashModel.getPaymentDetails().stream().map(payment -> payment.getTotal());
-        BigDecimal result = total.reduce((a,b) -> a.add(b)).get();
-        return new CurrentCash(result,cashModel.getStart(),cashModel.getPaymentDetails().stream().mapToInt(p -> p.getCount()).sum());
+        return toCash(cashModel);
+    }
+
+    public Cash getCashById(String cashId){
+        CashModel cashModel = cashService.getCashById(cashId);
+        return toCash(cashModel);
     }
 
     public CashService getCashService() {
@@ -35,5 +39,23 @@ public class CashFacade {
 
     public void setCashService(CashService cashService) {
         this.cashService = cashService;
+    }
+
+    private Cash toCash(CashModel cashModel){
+        if(CollectionUtils.isEmpty(cashModel.getPaymentDetails())){
+            return new Cash(BigDecimal.ZERO,cashModel.getStart(),0);
+        }
+        Stream<BigDecimal> total = cashModel.getPaymentDetails().stream().map(p -> p.getTotal());
+        BigDecimal result = total.reduce((a,b) -> a.add(b)).get();
+        Cash currentCash = new Cash(result,cashModel.getStart(),cashModel.getPaymentDetails().stream().mapToInt(p -> p.getCount()).sum());
+        List<PaymentData> paymentDataList = cashModel.getPaymentDetails().stream().map(CashMapper::toPaymentData).collect(Collectors.toList());
+        currentCash.setPaymentTypes(paymentDataList);
+        return currentCash;
+    }
+
+    private static class CashMapper{
+        public static PaymentData toPaymentData(PaymentDataModel model){
+            return new PaymentData(model.getType(),model.getTotal());
+        }
     }
 }

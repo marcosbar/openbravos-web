@@ -2,7 +2,6 @@ package com.mgb.persistence.model;
 
 import org.joda.time.DateTime;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -12,13 +11,13 @@ public class CashModel {
     private String id;
     private DateTime start;
     private DateTime end;
-    private List<PaymentData> paymentDetails;
+    private List<PaymentDataModel> paymentDetails;
 
-    public List<PaymentData> getPaymentDetails() {
+    public List<PaymentDataModel> getPaymentDetails() {
         return paymentDetails;
     }
 
-    public void setPaymentDetails(List<PaymentData> paymentDetails) {
+    public void setPaymentDetails(List<PaymentDataModel> paymentDetails) {
         this.paymentDetails = paymentDetails;
     }
 

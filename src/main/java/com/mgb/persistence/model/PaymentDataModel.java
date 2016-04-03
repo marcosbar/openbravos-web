@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 /**
  * Created by mgb on 26/03/2016.
  */
-public class PaymentData {
+public class PaymentDataModel {
     private String type;
     private BigDecimal total;
     private int count;
 
-    public PaymentData(String type, BigDecimal total, int count) {
+    public PaymentDataModel(String type, BigDecimal total, int count) {
         this.type = type;
         this.total = total;
         this.count = count;
@@ -21,7 +21,7 @@ public class PaymentData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PaymentData that = (PaymentData) o;
+        PaymentDataModel that = (PaymentDataModel) o;
 
         if (count != that.count) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
@@ -61,7 +61,7 @@ public class PaymentData {
         this.count = count;
     }
 
-    public static int getTotal(PaymentData value){
+    public static int getTotal(PaymentDataModel value){
         return value.getTotal().intValue();
     }
 }

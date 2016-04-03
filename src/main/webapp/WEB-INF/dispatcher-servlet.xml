@@ -13,20 +13,19 @@
 
 	<context:annotation-config />
 
-	<bean name="customObjectMapper" class="com.mgb.view.common.CustomObjectMapper"/>
+	<bean name="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+		<property name="serializers">
+			<array>
+				<bean class="com.mgb.view.common.json.DateTimeSerializer"/>
+				<bean class="com.mgb.view.common.json.BigDecimalSerializer"/>
+			</array>
+		</property>
+	</bean>
+
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="objectMapper">
-					<bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
-						<property name="serializers">
-							<array>
-								<bean class="com.mgb.view.common.json.DateTimeSerializer"/>
-								<bean class="com.mgb.view.common.json.BigDecimalSerializer"/>
-							</array>
-						</property>
-					</bean>
-				</property>
+				<property name="objectMapper" ref="objectMapper"/>
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>

@@ -1,7 +1,7 @@
 package com.mgb.view.controller;
 
 import com.mgb.domain.facade.CashFacade;
-import com.mgb.view.model.CurrentCash;
+import com.mgb.view.model.Cash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,13 @@ public class CashController {
     @CrossOrigin//TODO make this tag work, use org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     @ResponseBody
-    public CurrentCash getCurrent(){
+    public Cash getCurrent(){
         return cashFacade.getCurrentCash();
+    }
+
+    @RequestMapping(value = "/current/{cashId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Cash getCashById(@PathVariable String cashId){
+        return cashFacade.getCashById(cashId);
     }
 }

@@ -1,8 +1,8 @@
 package commons;
 
 import com.mgb.persistence.model.CashModel;
-import com.mgb.persistence.model.PaymentData;
-import com.mgb.view.model.CurrentCash;
+import com.mgb.persistence.model.PaymentDataModel;
+import com.mgb.view.model.Cash;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
@@ -27,14 +27,14 @@ public class CashTestHelper {
         cashModel.setId(CASH_ID);
         cashModel.setStart(START_DATE);
         cashModel.setEnd(END_DATE);
-        List<PaymentData> paymentData = new ArrayList<>();
-        paymentData.add(new PaymentData(TYPE_CARD, TOTAL_AMOUNT, NUMBER_OF_SALES));
-        cashModel.setPaymentDetails(paymentData);
+        List<PaymentDataModel> paymentDataModel = new ArrayList<>();
+        paymentDataModel.add(new PaymentDataModel(TYPE_CARD, TOTAL_AMOUNT, NUMBER_OF_SALES));
+        cashModel.setPaymentDetails(paymentDataModel);
         return cashModel;
     }
 
-    public static CurrentCash getCurrentCash(){
-        return new CurrentCash(TOTAL_AMOUNT,START_DATE,NUMBER_OF_SALES);
+    public static Cash getCurrentCash(){
+        return new Cash(TOTAL_AMOUNT,START_DATE,NUMBER_OF_SALES);
     }
 
 }

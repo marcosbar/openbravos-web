@@ -3,16 +3,26 @@ package com.mgb.view.model;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by mgb on 23/03/2016.
  */
-public class CurrentCash {
+public class Cash {
     private BigDecimal cash;
     private DateTime created;
     private int numberOfSales;
+    List<PaymentData> paymentTypes;
 
-    public CurrentCash(BigDecimal cash, DateTime created, int numberOfSales) {
+    public List<PaymentData> getPaymentTypes() {
+        return paymentTypes;
+    }
+
+    public void setPaymentTypes(List<PaymentData> paymentTypes) {
+        this.paymentTypes = paymentTypes;
+    }
+
+    public Cash(BigDecimal cash, DateTime created, int numberOfSales) {
         this.cash = cash;
         this.created = created;
         this.numberOfSales = numberOfSales;
@@ -47,7 +57,7 @@ public class CurrentCash {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CurrentCash that = (CurrentCash) o;
+        Cash that = (Cash) o;
 
         if (numberOfSales != that.numberOfSales) return false;
         if (cash != null ? !cash.equals(that.cash) : that.cash != null) return false;
