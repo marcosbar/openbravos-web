@@ -1,6 +1,7 @@
 package functional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import commons.DatabaseTest;
 import functional.model.CurrentCashTest;
 import functional.model.PaymentDataTest;
 import org.joda.time.format.DateTimeFormat;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
         "classpath:model-config-test.xml",
         "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml" })
 @WebAppConfiguration
-public class CashControllerTest {
+public class CashControllerTest extends DatabaseTest {
 
     @Autowired
     WebApplicationContext wac;
@@ -44,15 +45,15 @@ public class CashControllerTest {
         mockMvc = webAppContextSetup(wac).build();
     }
 
-    //TODO: use test data from integration
     @Test
     public void shouldGetCurrentCash() throws Exception {
 
         //GIVEN
-        BigDecimal total = new BigDecimal("192.40");
-        CurrentCashTest expected = new CurrentCashTest(total, dtf.parseDateTime("26/08/2013 22:32:59"),21);
-        PaymentDataTest paymentDataTest = new PaymentDataTest("cash",total);
-        expected.setPaymentTypes(Arrays.asList(paymentDataTest));
+        BigDecimal total = new BigDecimal("262.40");
+        CurrentCashTest expected = new CurrentCashTest(total, dtf.parseDateTime("26/08/2013 22:32:59"),23);
+        PaymentDataTest paymentDataTest = new PaymentDataTest("cash",new BigDecimal("192.40"));
+        PaymentDataTest paymentDataTestCard = new PaymentDataTest("magcard", new BigDecimal("70"));
+        expected.setPaymentTypes(Arrays.asList(paymentDataTest, paymentDataTestCard));
 
         //WHEN
         ResultActions result = mockMvc.perform(get("/cash/current")
@@ -67,10 +68,11 @@ public class CashControllerTest {
     @Test
     public void shouldGetCurrentCashForCashId() throws Exception{
         //GIVEN
-        BigDecimal total = new BigDecimal("192.40");
-        CurrentCashTest expected = new CurrentCashTest(total, dtf.parseDateTime("26/08/2013 22:32:59"),21);
-        PaymentDataTest paymentDataTest = new PaymentDataTest("cash",total);
-        expected.setPaymentTypes(Arrays.asList(paymentDataTest));
+        BigDecimal total = new BigDecimal("262.40");
+        CurrentCashTest expected = new CurrentCashTest(total, dtf.parseDateTime("26/08/2013 22:32:59"),23);
+        PaymentDataTest paymentDataTest = new PaymentDataTest("cash",new BigDecimal("192.40"));
+        PaymentDataTest paymentDataTestCard = new PaymentDataTest("magcard", new BigDecimal("70"));
+        expected.setPaymentTypes(Arrays.asList(paymentDataTest, paymentDataTestCard));
 
         //WHEN
         ResultActions result = mockMvc.perform(get("/cash/current/248191f5-938b-4109-8b19-ab6008dd5d79")

@@ -63,7 +63,6 @@ public class CashJDBCTemplate extends JdbcTemplateDAO implements CashDAO {
 
         private DateTime getDateTime(Timestamp timestamp){
             if(timestamp!=null){
-                System.out.println(timestamp.getTime());
                 return new DateTime(timestamp.getTime());
             }
             return null;

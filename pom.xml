@@ -17,7 +17,7 @@
             <properties>
                 <!-- TEST -->
                 <testDataSource.jdbcDriverName>com.mysql.jdbc.Driver</testDataSource.jdbcDriverName>
-                <testDataSource.url>jdbc:mysql://localhost/openbravos</testDataSource.url>
+                <testDataSource.url>jdbc:mysql://localhost/openbravos_test</testDataSource.url>
                 <testDataSource.user>test</testDataSource.user>
                 <testDataSource.password>test</testDataSource.password>
                 <!-- LOCAL -->
@@ -149,6 +149,9 @@
               </directory>
               <filtering>true</filtering>
               <includes>
+                  <include>
+                      data/*
+                  </include>
                   <include>
                       model-config-test.xml
                   </include>

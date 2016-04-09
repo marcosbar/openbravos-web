@@ -64,4 +64,13 @@ public class PaymentDataModel {
     public static int getTotal(PaymentDataModel value){
         return value.getTotal().intValue();
     }
+
+    @Override
+    public String toString() {
+        return "PaymentDataModel{" +
+                "type='" + type + '\'' +
+                ", total=" + total +
+                ", count=" + count +
+                '}';
+    }
 }
