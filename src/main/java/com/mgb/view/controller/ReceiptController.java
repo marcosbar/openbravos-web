@@ -1,19 +1,23 @@
 package com.mgb.view.controller;
 
 import com.mgb.domain.facade.CashFacade;
-import com.mgb.view.model.Cash;
+import com.mgb.view.model.ReceiptData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by mgb on 21/03/2016.
  */
 @Component
-@RequestMapping(value = "/cash")
-public class CashController {
+@RequestMapping(value = "/receipts")
+public class ReceiptController {
 
     @Autowired
     private CashFacade cashFacade;
@@ -23,16 +27,11 @@ public class CashController {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
-    @CrossOrigin//TODO make this tag work, use org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     @ResponseBody
-    public Cash getCurrent(){
-        return cashFacade.getCurrentCash();
+    public List<ReceiptData> getCurrentReceipts(){
+        return cashFacade.getCurrentReceipts();
     }
 
-    @RequestMapping(value = "/{cashId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Cash getCashById(@PathVariable String cashId){
-        return cashFacade.getCashById(cashId);
-    }
+
 }

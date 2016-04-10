@@ -8,6 +8,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
  */
 @SqlGroup({
         @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:data/before.sql"),
+        @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:data/cashData.sql"),
         @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:data/after.sql")
 })
 public abstract class DatabaseTest {

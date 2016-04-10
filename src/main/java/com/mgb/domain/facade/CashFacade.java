@@ -1,10 +1,11 @@
 package com.mgb.domain.facade;
 
+import com.mgb.domain.facade.mapper.CashMapper;
 import com.mgb.domain.service.CashService;
 import com.mgb.persistence.model.CashModel;
-import com.mgb.persistence.model.PaymentDataModel;
 import com.mgb.view.model.Cash;
 import com.mgb.view.model.PaymentData;
+import com.mgb.view.model.ReceiptData;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,10 @@ public class CashFacade {
         return toCash(cashModel);
     }
 
+    public List<ReceiptData> getCurrentReceipts(){
+        return cashService.getCurrentReceipts().stream().map(CashMapper::toReceiptData).collect(Collectors.toList());
+    }
+
     public CashService getCashService() {
         return cashService;
     }
@@ -51,11 +56,5 @@ public class CashFacade {
         List<PaymentData> paymentDataList = cashModel.getPaymentDetails().stream().map(CashMapper::toPaymentData).collect(Collectors.toList());
         currentCash.setPaymentTypes(paymentDataList);
         return currentCash;
-    }
-
-    private static class CashMapper{
-        public static PaymentData toPaymentData(PaymentDataModel model){
-            return new PaymentData(model.getType(),model.getTotal());
-        }
     }
 }
