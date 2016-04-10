@@ -6,6 +6,7 @@ import com.mgb.persistence.model.CashModel;
 import com.mgb.view.model.Cash;
 import com.mgb.view.model.PaymentData;
 import com.mgb.view.model.ReceiptData;
+import com.mgb.view.model.TicketLine;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class CashFacade {
     @Autowired
     private CashService cashService;
 
+
     public Cash getCurrentCash(){
         CashModel cashModel = cashService.getCurrentCash();
         return toCash(cashModel);
@@ -38,12 +40,8 @@ public class CashFacade {
         return cashService.getCurrentReceipts().stream().map(CashMapper::toReceiptData).collect(Collectors.toList());
     }
 
-    public CashService getCashService() {
-        return cashService;
-    }
-
-    public void setCashService(CashService cashService) {
-        this.cashService = cashService;
+    public List<TicketLine> getTicketLinesByTicketId(String ticketId){
+        return cashService.getTicketLinesByTicketId(ticketId).stream().map(CashMapper::toTicketLine).collect(Collectors.toList());
     }
 
     private Cash toCash(CashModel cashModel){
@@ -56,5 +54,13 @@ public class CashFacade {
         List<PaymentData> paymentDataList = cashModel.getPaymentDetails().stream().map(CashMapper::toPaymentData).collect(Collectors.toList());
         currentCash.setPaymentTypes(paymentDataList);
         return currentCash;
+    }
+
+    public CashService getCashService() {
+        return cashService;
+    }
+
+    public void setCashService(CashService cashService) {
+        this.cashService = cashService;
     }
 }

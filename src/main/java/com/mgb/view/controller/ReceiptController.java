@@ -2,12 +2,10 @@ package com.mgb.view.controller;
 
 import com.mgb.domain.facade.CashFacade;
 import com.mgb.view.model.ReceiptData;
+import com.mgb.view.model.TicketLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.List;
  * Created by mgb on 21/03/2016.
  */
 @Component
-@RequestMapping(value = "/receipts")
+@RequestMapping(value = "/receipt")
 public class ReceiptController {
 
     @Autowired
@@ -33,5 +31,10 @@ public class ReceiptController {
         return cashFacade.getCurrentReceipts();
     }
 
+    @RequestMapping(value = "/{ticketId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<TicketLine> getCurrentReceipts(@PathVariable String ticketId){
+        return cashFacade.getTicketLinesByTicketId(ticketId);
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.mgb.persistence.common;
 
 import com.mgb.common.exceptions.NotFoundException;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -31,5 +33,12 @@ public class JdbcTemplateDAO extends JdbcDaoSupport {
             throw new NotFoundException();
         }
         return result.get(0);
+    }
+
+    protected DateTime getDateTime(Timestamp timestamp){
+        if(timestamp!=null){
+            return new DateTime(timestamp.getTime());
+        }
+        return null;
     }
 }
